@@ -1,0 +1,5 @@
+{% for element in logo %}
+<a class="navbar-brand" href="{{path('main')}}">
+    <img src="{{ asset('assets/logo/' ~ element.logo) }}" class="logo">
+</a>
+{% endfor %}

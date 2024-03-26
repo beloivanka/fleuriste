@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+ <!-- Main Page -->
+
+<section>
+  <div class="title-container">
+    <h1>Le Marché aux Tulipes</h1>
+    <h5>Découvrez les plus belles fleurs de saison en direct de nos producteurs livrées partout en France</h5>
+    <a class="main-btn" href="#">BOUTIQUE</a>
+  </div>
+</section>
+
+<!-- Our works section -->
+
+<section>
+  <h3>Nos meilleurs bouquets</h3>
+  <div class="small-line"></div>
+  <div class="large-line"></div>
+  <h4>Lorem ipsum dolor sit amet consectetur adipiscing elit</h4>
+  <section id="works-grid">
+  {% for product in favProducts %}
+    <a href="{{ path('app_product_show', {id: product.id}) }}">
+      <img class="mp-work" id="work1" src="{{ asset('assets/uploads/' ~ product.image) }}" alt="product-item" class="img-fluid">
+    </a>
+  {% endfor %}
+  </section>
+
+  {# <section id="works-grid">
+  {% for i, product in favProducts %}
+  <a id="work{{i}}" href="{{ path('app_product_show', {id: product.id}) }}">
+    <img class="mp-work" src="{{ asset('assets/uploads/' ~ product.image) }}" alt="product-item" class="img-fluid">
+  </a>
+  {% endfor %}
+  </section> #}
+
+
+
+</section>
+
+<!-- About section -->
+
+<section>
+  <h3>Qui sommes-nous?</h3>
+  <div class="small-line"></div>
+  <div class="large-line"></div>
+  <h4>Lorem ipsum dolor sit amet consectetur adipiscing elit</h4>
+  <p id="about-text" class="text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+    mollit anim id est laborum.
+  </p>
+  <div id="about-container">
+    <img id="about-img" src="{{ asset('assets/img/about-img.png')}}" alt="Nos specialistes" />
+    <div class="card-container">
+      <h5>Notre équipe</h5>
+      <div class="card-line"></div>
+      <h6>Lorem ipsum dolor sit amet</h6>
+      <p class="text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact stripe -->
+
+<div id="shipping-stripe-container">
+  <p id="shipping-text">La livraison de fleurs à domicile en un clic</p>
+  <p id="shipping-text"> Faire livrer des fleurs n'aura jamais été aussi simple et naturel !</p>
+</div>
+
+
+<!-- Testimonials section -->
+
+<section>
+  <h3>Avis de nos clients</h3>
+  <div class="small-line"></div>
+  <div class="large-line"></div>
+  <h4>Lorem ipsum dolor sit amet consectetur adipiscing elit</h4>
+
+    <div class="tst-container">
+      <button class="arrows-desk" id="arrow-back">
+        <span class="material-symbols-outlined" id="left-arrow">
+          arrow_back_ios
+        </span>
+      </button>
+      <div class="desktop-avis-container">
+        <div class="avis-items-container">
+          <img class="quotes quote1" src="{{ asset('assets/img/testimonials/quotes.png')}}" alt="quotes" />
+          <div class="avis-img-name">
+            <img id="avis-photo" class="avis-img" src="" alt="Photo de l'utilisateur" />
+            <p id="avis-nom" class="tst-name"></p>
+          </div>
+          <p class="tst-text" id="avis-text"></p>
+          <img class="quotes quote2" src="{{asset('assets/img/testimonials/quotes.png')}}" alt="quotes" />
+        </div>
+      </div>
+      <button id="arrow-forward" class="arrows-desk">
+        <span class="material-symbols-outlined" id="right-arrow">
+          arrow_forward_ios
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="circles-container">
+    <span id="circle1" class="rond"></span>
+    <span id="circle2" class="rond"></span>
+    <span id="circle3" class="rond"></span>
+    <span id="circle4" class="rond"></span>
+  </div>
+</section>
+
+<!-- Icons information -->
+
+{# <div class="icon-info-container">
+  <div class="icon-info-card">
+    <span class="material-symbols-outlined"> schedule </span>
+    <p class="icon-info-text">LIVRAISON À DATE FIXE</p>
+  </div>
+  <div class="icon-info-card">
+    <span class="material-symbols-outlined"> cake </span>
+    <p class="icon-info-text">TOUTES LES OCCASIONS</p>
+  </div>
+  <div class="icon-info-card">
+    <span class="material-symbols-outlined"> deceased </span>
+    <p class="icon-info-text">FRAICHEUR GARANTIE</p>
+  </div>
+</div> #}
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Logo{% endblock %}
+
+{% block body %}
+    <h1>Edit Logo</h1>
+
+    {{ include('logo/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_logo_index') }}">back to list</a>
+
+    {{ include('logo/_delete_form.html.twig') }}
+{% endblock %}

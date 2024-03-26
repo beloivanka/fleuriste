@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer></script>
+    <script src="//widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js" defer></script>
+    <script src="/assets/js/new-script.js" defer></script>
+    
+{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+
+    <h1>Détails de la commande</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for element in data %}
+                <tr>
+                    <td>Bouquet {{element.product.name}}</td>
+                    <td>{{element.product.price}} €</td>
+                    <td>{{element.quantity}}</td>
+                    <td>{{element.quantity * element.product.price}} $</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ total }} $</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    {# Adresse de livraison #}
+
+<div class="delivery-container mt-4">
+<div class="me-4">
+    <h2>La livraison sera au nom de:</h2>
+    
+    {{ form_errors(form) }}
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.firstName) }}  
+    {{ form_row(form.lastName) }} 
+
+    <h2 class="mt-4">Ajoutez une carte personalisée</h2> 
+
+    {{ form_row(form.note) }} 
+
+    <h2 class="mt-4">Adresse de livraison</h2>
+    <p>Merci de saisir l'adresse de livraison ou de choisir une adresse Relay avant de valider votre commande</p>
+            
+            {{ form_row(form.address) }}  
+            {{ form_row(form.zipcode) }} 
+            {{ form_row(form.city) }} 
+
+        <div class="form-check form-switch d-flex align-items-center">
+            {{ form_row(form.checkbox) }} 
+        </div>
+
+    {{ form_end(form) }}
+
+    <a class="back-btn" href="{{ path('cart_index') }}">Retourner dans le panier</a>
+</div>
+<div>
+    <!-- HTML Element in which the Parcelshop Picker Widget is loaded -->
+    <div id="Zone_Widget" class="z-index"></div>
+
+    <!-- HTML element to display the parcelshop selected, for demo only. Should use hidden instead. -->
+    <input type="text" id="Target_Widget" />
+</div>
+</div>
+
+</div>
+
+{% endblock %}

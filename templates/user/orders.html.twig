@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+    <h1>Mes commandes</h1>
+
+{% if orders|default() %}
+
+<table class="table">
+    {% for order in orders %}
+    <thead>
+    <tr class="table-success">
+        <th>ID: {{order.id}}</th>
+        <th>Livré à {{order.firstName}} {{order.lastName}}</th>
+        <th>à l'adresse {{order.address}}, {{order.zipcode}}, {{order.city}}</th>
+        <th>Créé le {{order.createdAt|date('d/m/y')}}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>        
+        {% for detail in order.orderDetails %}
+        <tr>
+            <td>{{detail.products.name}}</td>
+            <td>Quantité: {{detail.quantity}}</td>
+            <td>Prix: {{detail.price}} €</td>
+            <td>Total par produit: {{detail.price * detail.quantity}} €</td>
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td colspan="4">Total de la commande: {{order.total}} €</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% else %}
+
+<p>Vous n'avez pas de commande</p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

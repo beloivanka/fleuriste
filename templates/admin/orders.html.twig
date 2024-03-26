@@ -1,0 +1,53 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}Orders{% endblock %}
+
+{% block main %}
+
+
+    <table class="table"> 
+        {% for order in orders %}
+        <thead>
+            <tr class="table-light">
+                <th>Order ID: <div>{{order.id}}</div></th>
+                <th>User name: <div>{{order.user.firstName}} {{order.user.lastName}}</div></th>
+                <th>User E-mail: <div>{{order.user.email}}</div></th>
+                <th>Delivery address: <div>{{order.address}}, {{order.zipcode}}, {{order.city}}</div></th>
+                <th>Derivered to <div>{{order.firstName}} {{order.lastName}}</div></th>
+                <th>Created at: <div>{{order.createdAt|date('d/m/y H:i:s')}}</div></th>
+                <th>
+                    <form action="{{ url('admin_order_delete', { id: order.id }) }}" method="post">
+                    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ order.id ) }}">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for element in orderDetails %}
+                {% if order.id is same as element.orders.id %}
+                <tr>
+                    <td colspan="2" >{{element.products.name}}</td>
+                    <td>Quantity: {{element.quantity}}</td>
+                    <td colspan="3">Price per item: {{element.price}} $</td>
+                    <td></td>
+                </tr>
+
+                {% endif %}
+            {% endfor %}
+                <tr>
+                    <td colspan="7">Total order price: {{order.total}} $</td>
+                </tr>
+        </tbody>
+    {% endfor %}       
+
+    </table>
+
+    <div class="d-flex justify-content-between">
+        <span>{{ orders.getTotalItemCount}} results</span>
+        <span>{{ knp_pagination_render (orders) }}</span>
+    </div>
+
+
+{% endblock %}

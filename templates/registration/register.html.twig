@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de compte{% endblock %}
+
+{% block body %}
+<div class="form-wrapper">
+    {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté comme {{ app.user.userIdentifier }}
+        </div>
+        <a class="btn-green" href="{{ path('app_logout') }}">Me déconnecter</a>
+    {% else %}
+
+    <h1>Créer un compte</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+
+    <legend>Mes informations</legend>
+
+        {{ form_label(registrationForm.firstName) }}
+        {{ form_errors(registrationForm.firstName) }}
+        {{ form_widget(registrationForm.firstName) }}
+        
+        {{ form_row(registrationForm.lastName) }}
+
+        {{ form_label(registrationForm.email) }}
+        {{ form_errors(registrationForm.email) }}
+        {{ form_widget(registrationForm.email) }}
+
+    <legend>Mon adresse</legend>
+        {{ form_row(registrationForm.address) }}  
+        {{ form_row(registrationForm.zipcode) }} 
+        {{ form_row(registrationForm.city) }} 
+
+    <legend>Mot de passe</legend>
+        {{ form_row(registrationForm.plainPassword)}}
+
+        <div class="form-check mt-4 mb-4">
+        {{ form_row(registrationForm.agreeTerms, {
+            label: '<a class="btn-as-link" type="button" data-bs-toggle="modal" data-bs-target="#myModal">J\'ai lu et j\'accepte les termes et conditions...</a>',
+            label_html: true
+        })}}
+        </div>
+
+    {{ form_end(registrationForm) }}
+    
+    {% endif %}
+    </div>
+
+<div id="myModal" class="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Termes et conditions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam tempore sed cumque repellat iusto ipsa saepe atque nisi provident, repudiandae officia numquam doloribus, id, temporibus illum. Non, quos. Quasi, natus.</p>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de compte{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+
+<h1>Modifier mes informations</h1>
+
+    {{ form_errors(form) }}
+
+    {{ form_start(form) }}
+
+    <legend>Mes informations</legend>
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.email) }}
+
+    <legend>Mon adresse</legend>
+        {{ form_row(form.address) }}  
+        {{ form_row(form.zipcode) }} 
+        {{ form_row(form.city) }} 
+
+
+    <legend>Mon adresse favorie de livraison</legend>
+        {{ form_row(form.favAddress) }}  
+        {{ form_row(form.favZipcode) }} 
+        {{ form_row(form.favCity) }} 
+
+        {{ form_row(form.plainPassword) }} 
+
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}

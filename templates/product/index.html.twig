@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop All{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+    <h1>Découvez tous nos bouquets</h1>
+        <div class="products-container">
+        {% for product in products %}
+            <div class="product-card-container">
+                <img class="card-img img-fluid" src="{{ asset('assets/uploads/' ~ product.image) }}" alt="iphone">
+            <div class="card-content-container">
+                <h2>{{ product.getName()}}</h2>
+                <p class="card-text bold-text">Prix: {{ product.getPrice()}} $</p>
+                <p class="card-text bold-text">Stock: {{product.getStock()}}</p>
+                <p class="card-text bold-text">Categorie:</p>
+                <p class="card-text bold-text">{{ product.category.getName()}}</p>
+                <a class="card-btn" href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a>
+                </div>
+            </div>
+        {% else %}
+                <p colspan="5">Aucun produit</p>
+        {% endfor %}
+    </div>
+        <div class="pagination d-flex justify-content-center mt-4">
+            {# <span>{{ products.getTotalItemCount}} résultats</span> #}
+            <span>{{ knp_pagination_render (products) }}</span>
+        </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+
+
+<h1>Bienvenue {{ app.user.getFirstName() }}</h1>
+<p class="mb-3">
+    Vous vous êtes connecté comme {{ app.user.userIdentifier }}
+</p>
+{% if app.user.getIsVerified(true) %}
+<p class="activation-info">Votre compte est activé</p>
+{% endif %}
+
+<a class="btn-green" href="{{ path('app_logout') }}">Me déconnecter</a>
+
+    <h2 class="user-title">Informations</h2>
+        <p>Prénom: {{ app.user.getFirstName() }}</p>
+        <p>Nom: {{ app.user.getLastName() }}</p>
+        <p>Adresse mail: {{ app.user.getEmail() }}</p>
+    <h2 class="user-title">Adresse de facturation</h2>
+        <p>Adresse: {{ app.user.getAddress() }}</p>
+        <p>Code Postal: {{ app.user.getZipcode() }}</p>
+        <p>Ville: {{ app.user.getCity() }}</p>
+    {% if app.user.getFavAddress()|default()%}
+        <h2 class="user-title">Adresse favorie de livraison</h2>
+        <p>Adresse: {{ app.user.getFavAddress() }}</p>
+        <p>Code Postal: {{ app.user.getFavZipcode() }}</p>
+        <p>Ville: {{ app.user.getFavCity() }}</p>
+    {% else %}
+        <h2 class="user-title">Adresse favorite de livraison</h2>
+        <p>Vous ne l'avez pas encore choisie</p>
+    {% endif %}
+
+        <div class="btn-container">
+        <a href="{{ path('profile_edit',{'id': app.user.id}) }}" class="btn-green">Modifier mes informations</a>
+        <a href="{{path('profile_edit_password',{'id': app.user.id} )}}" class="btn-green">Modifier le mot de passe</a>
+        <a href="{{ path('profile_orders')}}" class="btn-green">Voir mes commandes</a>
+        {{ include('user/_delete_form.html.twig') }}
+        </div>
+
+</div>
+
+
+{% endblock %}

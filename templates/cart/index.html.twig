@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+<div class="cart-wrapper">
+
+    <h1>Votre panier</h1>
+    {% for element in data %}
+    <div class="cart-items-wrapper">
+        <div class="cart-item-container">
+            <a class="cart-img-link" href="{{ path('app_product_show', {'id': element.product.id}) }}">
+                <img class="img-fluid cart-img" src="{{ asset('/assets/uploads/' ~ element.product.image) }}" alt="iphone">
+            </a>
+            <div class="cart-element-info">
+                <div class="cart-element">
+                    <p class="cart-item-title">Bouquet "{{element.product.name}}"</p>
+                    <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="btn-close"></a>
+            </div>
+            <div class="cart-element">
+                <div class="cart-quantity-container">
+                    <a href="{{ path('cart_remove', {id: element.product.id}) }}" class="cart-quantity-btn">–</a>
+                    <p>{{element.quantity}} </p>
+                    <a href="{{ path('cart_add', {id: element.product.id}) }}" class="cart-quantity-btn">+</a>
+                </div>
+            </div>
+            <div><p>Prix: {{element.quantity * element.product.price}} €</p></div>
+        </div>
+    </div>
+    </div>
+
+    {% else %}
+        <p>Le panier est vide</p>
+    {% endfor %}
+
+    <div class="cart-element">
+        <p>TOTAL: {{ total }} €</p>
+        <a href="{{ path('cart_empty')}}" class="btn-delete">Vider le panier</a>
+    </div>
+
+    {% if "ROLE_USER" in app.user.getRoles()|default() %}
+        <a href="{{ path('app_order_details', {id: app.user.id} )}}" class="buy-btn">Acheter</a>
+    {% else %}
+        <a class="buy-btn" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Acheter</a>
+    {% endif %}
+
+    <div class="mt-4">
+        <a class="back-btn" href="{{ path('app_product') }}">Continuer les achats</a>
+    </div>
+
+</div>
+
+<div id="myModal" class="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Connectez-vous pour continuer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-text">Pour continuer les achats, veuillez créer un compte ou vous connecter si vous en avez déjà un.</p>
+        <a class="buy-btn" href="{{path('app_register')}}">Créer un compte</a>
+        <a class="buy-btn" href="{{path('app_login')}}">Se connecter</a>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

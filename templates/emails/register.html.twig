@@ -1,0 +1,7 @@
+<h1>Activez votre compte</h1>
+    <p>Bonjour {{ user.firstName }}!</p>
+        <p>Votre inscription sur le site Fleurs de Nadine doit être confirmée.</p>
+            <p>Ouvrez le lien pour valider l'inscription: 
+                <a href="{{absolute_url( path('verify_user', {token:token}) )}}">{{absolute_url( path('verify_user', {token:token}) )}}</a>
+            </p>
+            <p>Ce lien expirera dans 3 heures.</p>

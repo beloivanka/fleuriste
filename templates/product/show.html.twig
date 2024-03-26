@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du produit{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+<h1>Détails sur le bouquet</h1>
+<div class="card-details">
+    <img class="card-img-details img-fluid" src="{{ asset('assets/uploads/' ~ product.image) }}" alt="iphone">
+        <div class="card-content-container">
+            <h2>{{ product.getName()}}</h2>
+            <div class="large-line"></div>
+            <p class="bold-text">Prix: {{ product.getPrice()}} €</p>
+            <p class="bold-text">Stock: {{product.getStock()}}</p>
+            <p class="bold-text">Categorie: {{ product.category.getName()}}</p>
+            <p class="text">{{ product.getDescription}}</p>  
+                            
+            <div class="flex-end">
+                {{ form_start(form)}}
+                {{ form_row(form.quantity) }}
+                {{ form_end(form) }}
+                <a class="back-btn" href="{{ path('app_product') }}">Retourner à la boutique</a>
+            </div>
+        </div>
+</div>
+</div>
+
+{% endblock %}
